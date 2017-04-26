@@ -4,16 +4,21 @@ import { Grid } from 'react-flexbox-grid';
 import { compose } from 'react-komposer';
 import { Meteor } from 'meteor/meteor';
 
-//import Public from '../pages/Public';
-//import Authenticated from '../pages/Authenticated';
+import Public from '../pages/Public';
+import Authenticated from '../pages/Authenticated';
 //import AppNavigation from '../components/AppNavigation';
+
+import Index from '../pages/Index';
 
 const App = appProps => (
   <Router>
     <div className="App">
       {/*<AppNavigation {...appProps} /> */}
-      <h1>TEst</h1>
       <Grid>
+        <Switch>
+          <Route exact name="index" path="/" component={Index} />
+
+        </Switch>
         {/*<Switch>
           <Route exact name="index" path="/" component={Index} />
           <Authenticated exact path="/documents" component={Documents} {...appProps} />
