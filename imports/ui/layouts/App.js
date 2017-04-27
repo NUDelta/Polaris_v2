@@ -4,6 +4,8 @@ import { Grid } from 'react-flexbox-grid';
 import { compose } from 'react-komposer';
 import { Meteor } from 'meteor/meteor';
 
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
 import Public from '../pages/Public';
 import Authenticated from '../pages/Authenticated';
 //import AppNavigation from '../components/AppNavigation';

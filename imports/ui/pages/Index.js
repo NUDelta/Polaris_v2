@@ -5,8 +5,6 @@ import { Meteor } from 'meteor/meteor';
 
 import AccountsUIWrapper from '../partials/AccountsUIWrapper'
 
-
-
 class Index extends Component {
   render() {
     return (
