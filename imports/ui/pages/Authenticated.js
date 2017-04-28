@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-const Authenticated = ({ loggingIn, authenticated, component, ...rest }) => (
+const Authenticated = ({ loggingIn, authenticated, user, component, ...rest }) => (
   <Route {...rest} render={(props) => {
     if (loggingIn) return <div></div>;
     return authenticated ?

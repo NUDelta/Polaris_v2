@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Grid } from 'react-flexbox-grid';
-import { compose } from 'react-komposer';
+import { composeWithTracker } from 'react-komposer';
 import { Meteor } from 'meteor/meteor';
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -11,6 +11,7 @@ import Authenticated from '../pages/Authenticated';
 //import AppNavigation from '../components/AppNavigation';
 
 import Index from '../pages/Index';
+import KnowledgeRepresentation from '../pages/KnowledgeRepresentation';
 
 const App = appProps => (
   <Router>
@@ -19,7 +20,7 @@ const App = appProps => (
       <Grid>
         <Switch>
           <Route exact name="index" path="/" component={Index} />
-
+          <Authenticated exact path="/knowledge-representation" component={KnowledgeRepresentation} {...appProps} />
         </Switch>
         {/*<Switch>
           <Route exact name="index" path="/" component={Index} />
@@ -43,6 +44,10 @@ App.propTypes = {
   authenticated: PropTypes.bool,
 };
 
+const options = {
+  propsToWatch: ['loggingIn', 'authenticated']
+};
+
 const composer = (props, onData) => {
   const loggingIn = Meteor.loggingIn();
   onData(null, {
@@ -51,4 +56,5 @@ const composer = (props, onData) => {
   });
 };
 
-export default compose(composer)(App);
+
+export default composeWithTracker(composer, options)(App);
