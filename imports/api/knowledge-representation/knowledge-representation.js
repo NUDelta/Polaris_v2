@@ -1,13 +1,48 @@
 import { Mongo } from 'meteor/mongo';
-import SimpleSchema from 'simpl-schema';
-import { Schema } from '../schema';
- 
-export const KnowledgeRepresentation = new Mongo.Collection('kr');
+import {Section} from '../section/section.js';
 
-Schema.KnowledgeRepresentation = new SimpleSchema({
-	level: {
-		type: Number
+class KnowledgeRepresentationCollection extends Mongo.Collection {
+	insert(kr, callback) {
+		console.log(kr);
+
+		kr.sections = [];
+
+		switch (kr.level) {
+			case 1:
+				const section1 = Section.insert({
+					name: "Problem Statement",
+					questions: [
+						{
+							title: "Who are your users?",
+							text: ''
+						},
+						{
+							title: "What are your user's needs and goals?",
+							text: ''
+						}
+					]
+				});
+
+				const section2 = Section.insert({
+					name: "Technical Arguments",
+					questions: [
+						{
+							title: "What system features enable your affordances to work?",
+							text: ''
+						}
+					]
+				});
+
+				kr.sections.push(section1);
+				kr.sections.push(section2);
+
+				break;
+			default:
+				console.log("No match on the level")
+		}
+
+	    return super.insert(kr, callback);
 	}
-});
+}
 
-KnowledgeRepresentation.attachSchema(Schema.KnowledgeRepresentation);
+export const KnowledgeRepresentation = new KnowledgeRepresentationCollection('kr');

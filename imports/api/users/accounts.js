@@ -8,11 +8,9 @@ Accounts.onCreateUser((options, user) => {
 		//
 		//The list of errors is available on `error.invalidKeys` or by calling Books.simpleSchema().namedContext().validationErrors()
 	});
-
-	console.log(kr_id);
 	
 	user.profile = {
-		knowledge_representation_id: kr_id
+		knowledge_representation_id: kr_id,
 	};
 
 	return user;

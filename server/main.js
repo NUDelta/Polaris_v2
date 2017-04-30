@@ -2,7 +2,6 @@ import { Meteor } from 'meteor/meteor';
 
 import '../imports/api/section/section.js';
 import '../imports/api/knowledge-representation/knowledge-representation.js';
-import '../imports/api/users/users.js';
 
 import '/imports/startup/server';
 
