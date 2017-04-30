@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import { composeWithTracker } from 'react-komposer';
 
+import {KnowledgeRepresentations} from '../../api/knowledge-representation/knowledge-representation.js';
+
 import { Grid, Row } from 'react-flexbox-grid';
 import {Card, CardHeader, CardTitle, CardText} from 'material-ui/Card';
 
@@ -62,10 +64,16 @@ class KnowledgeRepresentation extends Component {
 }
 
 const composer = (props, onData) => {
-  const user = Meteor.user();
-  onData(null, {
-    section_text: (user.profile !== undefined) ? user.profile.text : ''
-  });
+	const subscription = Meteor.subscribe( 'krs' );
+	const user = Meteor.user();
+
+	if ( subscription.ready() ) {
+		const sections = KnowledgeRepresentations.find({_id: Meteor.userId()}).fetch().map(kr => kr.sections);
+		onData(null, {
+			section_text: (user.profile !== undefined) ? user.profile.text : '',
+			sections: sections
+		});
+	}
 };
 
 export default composeWithTracker(composer)(KnowledgeRepresentation);

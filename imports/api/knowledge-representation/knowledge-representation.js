@@ -45,4 +45,4 @@ class KnowledgeRepresentationCollection extends Mongo.Collection {
 	}
 }
 
-export const KnowledgeRepresentation = new KnowledgeRepresentationCollection('kr');
+export const KnowledgeRepresentations = new KnowledgeRepresentationCollection('kr');

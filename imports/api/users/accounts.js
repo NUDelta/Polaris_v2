@@ -1,8 +1,8 @@
 import { Accounts } from 'meteor/accounts-base';
-import {KnowledgeRepresentation} from '../knowledge-representation/knowledge-representation.js';
+import {KnowledgeRepresentations} from '../knowledge-representation/knowledge-representation.js';
 
 Accounts.onCreateUser((options, user) => {
-	const kr_id = KnowledgeRepresentation.insert({level: 1}, (error, result) => {
+	const kr_id = KnowledgeRepresentations.insert({level: 1}, (error, result) => {
 		//The insert will fail, error will be set,
 		//and result will be undefined or false because "copies" is required.
 		//
