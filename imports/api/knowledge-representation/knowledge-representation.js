@@ -7,6 +7,13 @@ export const KnowledgeRepresentation = new Mongo.Collection('kr');
 Schema.KnowledgeRepresentation = new SimpleSchema({
 	level: {
 		type: Number
+	},
+	sections: {
+		type: Array
+	},
+	"sections.$": {
+		type: Schema.Section,
+		optional: true
 	}
 });
 
