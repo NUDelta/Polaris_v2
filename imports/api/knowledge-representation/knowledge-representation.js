@@ -1,16 +1,16 @@
 import { Mongo } from 'meteor/mongo';
-import {Section} from '../section/section.js';
+import {Sections} from '../section/section.js';
 
 class KnowledgeRepresentationCollection extends Mongo.Collection {
 	insert(kr, callback) {
-		console.log(kr);
 
 		kr.sections = [];
 
 		switch (kr.level) {
 			case 1:
-				const section1 = Section.insert({
+				const section1 = Sections.insert({
 					name: "Problem Statement",
+					section_number: 1,
 					questions: [
 						{
 							title: "Who are your users?",
@@ -23,8 +23,9 @@ class KnowledgeRepresentationCollection extends Mongo.Collection {
 					]
 				});
 
-				const section2 = Section.insert({
+				const section2 = Sections.insert({
 					name: "Technical Arguments",
+					section_number: 2,
 					questions: [
 						{
 							title: "What system features enable your affordances to work?",
