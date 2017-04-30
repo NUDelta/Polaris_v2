@@ -10,17 +10,21 @@ import Input from '../partials/Input';
 class Section extends Component {
 	render() {
 		let questions = [];
-		this.props.section.questions.forEach(sectionQuestion => {
+		for(let questionIndex = 0; questionIndex < this.props.section.questions.length; questionIndex += 1 ) {
+			let sectionQuestion = this.props.section.questions[questionIndex];
 			questions.push(
 				<Card key={sectionQuestion.title}>
 					<CardHeader title= {sectionQuestion.title} />
 					<CardText>
-						<Input text={sectionQuestion.text} />
+						<Input 
+							section = {this.props.section} 
+							questionIndex = {questionIndex} 
+							text = {sectionQuestion.text} 
+						/>
 					</CardText>
 				</Card>
 			);
-		});
-
+		}
 		return (
 			<Card className="full-width">
 				<CardHeader

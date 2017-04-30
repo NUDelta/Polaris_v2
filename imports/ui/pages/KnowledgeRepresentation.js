@@ -10,7 +10,6 @@ import { Grid, Row } from 'react-flexbox-grid';
 import {Card, CardHeader, CardTitle, CardText} from 'material-ui/Card';
 
 
-import Input from '../partials/Input';
 import Section from  '../partials/Section';
 
 class KnowledgeRepresentation extends Component {

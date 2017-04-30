@@ -2,17 +2,23 @@ import React from 'react';
 import TextField from 'material-ui/TextField';
 import { Meteor } from 'meteor/meteor';
 
+import {Sections} from '../../api/section/section.js';
+
+
 class Input extends React.Component {
 	constructor(props) {
     super(props);
   }
 
   changeHandler(e) {
-  	Meteor.users.update(Meteor.userId(), {
+    let setAction = this.props.section.questions;
+    setAction[this.props.questionIndex].text = e.target.value;
+
+    console.log(setAction);
+
+  	Sections.update(this.props.section._id, {
       $set: {
-        profile: {
-          text: e.target.value
-        }
+        questions: setAction
       }
     });
   }
