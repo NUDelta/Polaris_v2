@@ -22,10 +22,14 @@ class SetGoal extends Component {
 	_handleCheck(sectionID, event, checked){
 			let profile = this.props.user.profile;
 			if(checked){
-				profile.current_sections.push(sectionID);
+				if(!profile.current_sections.includes(sectionID)) {
+					profile.current_sections.push(sectionID);
+				}
 			} else {
 				const index = profile.current_sections.indexOf(sectionID);
-				profile.current_sections.splice(index, 1);
+				if (index >= 0) {
+					profile.current_sections.splice(index, 1);
+				}
 			}
 			
 			Meteor.users.update({_id:this.props.user._id}, { 
@@ -37,12 +41,17 @@ class SetGoal extends Component {
 
 	render() {
 		let sectionComponents = [];
+		let profile = this.props.user.profile;
 		this.props.sections.forEach(sectionObject => {
+			let isChecked = false;
+			if (profile.current_sections.includes(sectionObject._id)){
+				isChecked = true;
+			}
 			sectionComponents.push(
 				<ListItem
 					key={sectionObject._id} 
 					primaryText={sectionObject.name}
-					leftCheckbox={<Checkbox key={sectionObject._id} onCheck={this._handleCheck.bind(this, sectionObject._id)}/>} 
+					leftCheckbox={<Checkbox key={sectionObject._id} checked={isChecked} onCheck={this._handleCheck.bind(this, sectionObject._id)}/>} 
 				/>
 			);
 		});
