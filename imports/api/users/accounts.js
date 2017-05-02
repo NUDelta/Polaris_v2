@@ -11,6 +11,7 @@ Accounts.onCreateUser((options, user) => {
 	
 	user.profile = {
 		knowledge_representation_id: kr_id,
+		current_sections: []
 	};
 
 	return user;
