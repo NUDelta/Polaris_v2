@@ -10,6 +10,7 @@ import Authenticated from '../pages/Authenticated';
 
 import Index from '../pages/Index';
 import KnowledgeRepresentation from '../pages/KnowledgeRepresentation';
+import SetGoal from '../pages/SetGoal';
 
 const App = appProps => (
   <Router>
@@ -19,6 +20,7 @@ const App = appProps => (
         <Switch>
           <Route exact name="index" path="/" component={Index} />
           <Authenticated exact path="/knowledge-representation" component={KnowledgeRepresentation} {...appProps} />
+          <Authenticated exact path="/set-goal" component={SetGoal} {...appProps} />
         </Switch>
         {/*<Switch>
           <Route exact name="index" path="/" component={Index} />
