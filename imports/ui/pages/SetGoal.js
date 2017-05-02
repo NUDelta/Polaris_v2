@@ -6,29 +6,61 @@ import { composeWithTracker } from 'react-komposer';
 import {KnowledgeRepresentations} from '../../api/knowledge-representation/knowledge-representation.js';
 import {Sections} from '../../api/section/section.js';
 
-import { Grid, Row } from 'react-flexbox-grid';
-import {Card, CardHeader, CardTitle, CardText} from 'material-ui/Card';
+import { Row, Col } from 'react-flexbox-grid';
+import Subheader from 'material-ui/Subheader';
+import {List, ListItem} from 'material-ui/List';
+import Checkbox from 'material-ui/Checkbox';
 
-
-import Section from  '../partials/Section';
 
 class SetGoal extends Component {
+	constructor(props) {
+		super(props);
+		this._handleCheck = this._handleCheck.bind(this);
+	}
+
+	//This is bound using es5 not sure how to do it with es6
+	_handleCheck(sectionID, event, checked){
+			let profile = this.props.user.profile;
+			if(checked){
+				profile.current_sections.push(sectionID);
+			} else {
+				const index = profile.current_sections.indexOf(sectionID);
+				profile.current_sections.splice(index, 1);
+			}
+			
+			Meteor.users.update({_id:this.props.user._id}, { 
+				$set: {
+					profile: profile
+				} 
+			});
+	};
+
 	render() {
 		let sectionComponents = [];
 		this.props.sections.forEach(sectionObject => {
 			sectionComponents.push(
-				<Section key={sectionObject.section_number} section={sectionObject} />
+				<ListItem
+					key={sectionObject._id} 
+					primaryText={sectionObject.name}
+					leftCheckbox={<Checkbox key={sectionObject._id} onCheck={this._handleCheck.bind(this, sectionObject._id)}/>} 
+				/>
 			);
 		});
+
+		
 		return (
-			<div>
-				<Row>
-					<h1>Knowledge Representation</h1>
-				</Row>
-				<Row>
-					{sectionComponents}
-				</Row>
-			</div>
+			<Row>
+				<Col xs={12} mdOffset={1} md={10}>
+					<h1>Set Goal</h1>
+					<p>
+						Set your goals by choosing which sections of the knowledge representation 
+						you would like to tackle.
+					</p>
+					<List>
+						{sectionComponents}
+					</List>
+				</Col>
+			</Row>
 		);
 	}
 }
@@ -45,7 +77,8 @@ const composer = (props, onData) => {
 
 		onData(null, {
 			section_text: (user.profile !== undefined) ? user.profile.text : '',
-			sections: sectionArray
+			sections: sectionArray,
+			user: user
 		});
 	}
 };
